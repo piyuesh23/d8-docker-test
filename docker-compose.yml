@@ -9,17 +9,24 @@ services:
       - 8080:80
     volumes:
       - .:/var/www/monjin
+    links:
+      - mysql
+      - mailhog
     environment:
       DB_HOST: mysql
       DB_DATABASE: monjin
       DB_USERNAME: root
       DB_PASSWORD: admin
-  # mysql:
-  #   image: mysql:5.7
-  #   ports:
-  #     - 13306:3306
-  #   environment:
-  #     MYSQL_DATABASE: monjin
-  #     MYSQL_USER: root
-  #     MYSQL_PASSWORD: admin
-  #     MYSQL_ROOT_PASSWORD: admin
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 13306:3306
+    environment:
+      MYSQL_DATABASE: monjin
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:8025
